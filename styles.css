@@ -83,6 +83,7 @@ table,
 th,
 td {
   white-space: nowrap;
+  user-select: text; /* Enable text selection for the table */
 }
 
 button.active {
@@ -97,6 +98,7 @@ button.active {
 .filter-button {
   background-color: #f3f4f6; /* Default gray background */
   color: #000000; /* Black text */
+  user-select: none; /* Disable text selection for filter buttons */
 }
 .filter-button:hover {
   background-color: #d1d5db; /* Lighter gray on hover */

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
   <title>KD Data Table</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="styles.css" />
@@ -36,47 +36,47 @@
 
       <!-- Filter Buttons -->
       <div class="filter-buttons-container" data-draggable>
-        <div class="flex gap-2 mb-4 justify-start">
-          <button onclick="filterTable('All')" data-filter="All" class="filter-button active px-3 py-1 rounded-full bg-gray-300 text-white hover:bg-gray-900 hover:text-white shadow">
+        <div class="flex gap-2 mb-4 justify-start w-full">
+          <button onclick="filterTable('All')" data-filter="All" class="filter-button active px-2 py-1 flex-1 w-full rounded-full bg-gray-300 text-white hover:bg-gray-900 hover:text-white shadow">
             All
           </button>
-          <button onclick="filterTable('Approved')" data-filter="Approved" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          <button onclick="filterTable('Approved')" data-filter="Approved" class="filter-button px-2 py-1 flex-1 w-full rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
             Approved
           </button>
-          <button onclick="filterTable('Hold')" data-filter="Hold" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          <button onclick="filterTable('Hold')" data-filter="Hold" class="filter-button px-2 py-1 flex-1 w-full rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
             Hold
           </button>
-          <button onclick="filterTable('Cancellations')" data-filter="Cancellations" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          <button onclick="filterTable('Cancellations')" data-filter="Cancellations" class="filter-button px-2 py-1 flex-1 w-full rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
             Cancellations
           </button>
-          <button onclick="filterTable('Subscriptions')" data-filter="Subscriptions" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          <button onclick="filterTable('Subscriptions')" data-filter="Subscriptions" class="filter-button px-2 py-1 flex-1 w-full rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
             Subscriptions
           </button>
-          <button onclick="filterTable('Pending')" data-filter="Pending" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          <button onclick="filterTable('Pending')" data-filter="Pending" class="filter-button px-2 py-1 flex-1 w-full rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
             Pending
           </button>
-          <button onclick="filterTable('Declines')" data-filter="Declines" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          <button onclick="filterTable('Declines')" data-filter="Declines" class="filter-button px-2 py-1 flex-1 w-full rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
             Declines
           </button>
-          <button onclick="filterTable('Void/Refund')" data-filter="Void/Refund" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          <button onclick="filterTable('Void/Refund')" data-filter="Void/Refund" class="filter-button px-2 py-1 flex-1 w-full rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
             Void/Refund
           </button>
-          <button onclick="filterTable('Shipped')" data-filter="Shipped" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          <button onclick="filterTable('Shipped')" data-filter="Shipped" class="filter-button px-2 py-1 flex-1 w-full rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
             Shipped
           </button>
-          <button onclick="filterTable('Fraud')" data-filter="Fraud" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          <button onclick="filterTable('Fraud')" data-filter="Fraud" class="filter-button px-2 py-1 flex-1 w-full rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
             Fraud
           </button>
-          <button onclick="filterTable('Chargeback')" data-filter="Chargeback" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          <button onclick="filterTable('Chargeback')" data-filter="Chargeback" class="filter-button px-2 py-1 flex-1 w-full rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
             Chargeback
           </button>
-          <button onclick="filterTable('Return')" data-filter="Return" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          <button onclick="filterTable('Return')" data-filter="Return" class="filter-button px-2 py-1 flex-1 w-full rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
             Return
           </button>
-          <button onclick="filterTable('Bad Shipping Address')" data-filter="Bad Shipping Address" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          <button onclick="filterTable('Bad Shipping Address')" data-filter="Bad Shipping Address" class="filter-button px-2 py-1 flex-1 w-full rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
             Bad Shipping Address
           </button>
-          <button onclick="filterTable('Deleted')" data-filter="Deleted" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          <button onclick="filterTable('Deleted')" data-filter="Deleted" class="filter-button px-2 py-1 flex-1 w-full rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
             Deleted
           </button>
         </div>
