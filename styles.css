@@ -263,3 +263,42 @@ input:not([type="submit"], [type="checkbox"], [type="radio"]):focus {
 .status-deleted {
   background-color: #9e9e9e; /* Gray for Deleted */
 }
+
+.filter-buttons-container {
+  display: flex;
+  overflow-x: hidden;
+  cursor: grab;
+  user-select: none;
+}
+
+.filter-buttons-container .flex {
+  display: flex;
+  gap: 10px;
+  white-space: nowrap;
+  transition: transform 0.2s ease;
+}
+
+/* Hide scrollbar */
+.filter-buttons-container::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge */
+}
+
+.filter-buttons-container {
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  scrollbar-width: none; /* For Firefox */
+}
+
+[data-draggable] {
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+}
+
+[data-draggable]::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge */
+}
+
+[data-draggable] {
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  scrollbar-width: none; /* For Firefox */
+}

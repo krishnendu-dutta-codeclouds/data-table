@@ -497,3 +497,32 @@ let orders = JSON.parse(sessionStorage.getItem("orders")) || [
     }
   }
   
+  document.querySelectorAll('[data-draggable]').forEach(container => {
+    let isDragging = false;
+    let startX, scrollLeft;
+  
+    container.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      container.classList.add('dragging');
+      startX = e.pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+    });
+  
+    container.addEventListener('mouseleave', () => {
+      isDragging = false;
+      container.classList.remove('dragging');
+    });
+  
+    container.addEventListener('mouseup', () => {
+      isDragging = false;
+      container.classList.remove('dragging');
+    });
+  
+    container.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - startX) * 2; // Adjust scroll speed
+      container.scrollLeft = scrollLeft - walk;
+    });
+  });
