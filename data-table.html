@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KD Data Table</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="bg-gray-100 p-4 flex justify-center">
+  <div class="w-full max-w-7xl">
+    <!-- Page Header -->
+    <header class="mb-6">
+      <h1 class="text-2xl font-bold text-center text-gray-800">KD Data Table</h1>
+    </header>
+
+    <div class="overflow-x-auto">
+      <!-- Search Filters -->
+      <div class="mb-4 flex flex-wrap gap-2 justify-center">
+        <input id="search-order" type="text" placeholder="Search Order ID" class="w-full sm:w-auto shadow" />
+        <input id="search-email" type="text" placeholder="Customer Email" class="w-full sm:w-auto shadow" />
+        <input id="search-product" type="text" placeholder="Product Name" class="w-full sm:w-auto shadow" />
+        <button onclick="applySearchFilter()" class="bg-indigo-500 text-white px-4 py-1 rounded-lg hover:bg-gray-950 w-full sm:w-auto">Filter</button>
+
+        <!-- Dropdown for sorting rows -->
+        <select id="sort-dropdown" class="w-full sm:w-auto" onchange="sortRows()">
+          <option value="" disabled selected>Sort By</option>
+          <option value="orderId">Order ID</option>
+          <option value="customerName">Customer Name</option>
+          <option value="amount">Amount</option>
+          <option value="status">Status</option>
+        </select>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="flex flex-wrap gap-2 mb-4 justify-center">
+        <button onclick="filterTable('All')" data-filter="All" class="filter-button active px-3 py-1 rounded-full bg-gray-300 text-white hover:bg-gray-900 hover:text-white shadow">
+          All
+        </button>
+        <button onclick="filterTable('Approved')" data-filter="Approved" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          Approved
+        </button>
+        <button onclick="filterTable('Hold')" data-filter="Hold" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          Hold
+        </button>
+        <button onclick="filterTable('Cancellations')" data-filter="Cancellations" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          Cancellations
+        </button>
+        <button onclick="filterTable('Subscriptions')" data-filter="Subscriptions" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          Subscriptions
+        </button>
+        <button onclick="filterTable('Pending')" data-filter="Pending" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          Pending
+        </button>
+        <button onclick="filterTable('Declines')" data-filter="Declines" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          Declines
+        </button>
+        <button onclick="filterTable('Void/Refund')" data-filter="Void/Refund" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          Void/Refund
+        </button>
+        <button onclick="filterTable('Shipped')" data-filter="Shipped" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          Shipped
+        </button>
+        <button onclick="filterTable('Fraud')" data-filter="Fraud" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          Fraud
+        </button>
+        <button onclick="filterTable('Chargeback')" data-filter="Chargeback" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          Chargeback
+        </button>
+        <button onclick="filterTable('Return')" data-filter="Return" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          Return
+        </button>
+        <button onclick="filterTable('Bad Shipping Address')" data-filter="Bad Shipping Address" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          Bad Shipping Address
+        </button>
+        <button onclick="filterTable('Deleted')" data-filter="Deleted" class="filter-button px-3 py-1 rounded-full bg-gray-300 hover:bg-gray-900 hover:text-white shadow">
+          Deleted
+        </button>
+      </div>
+
+      <!-- Orders Table -->
+      <div class="overflow-auto rounded-lg shadow">
+        <table class="table-auto w-full border-collapse border border-gray-200 text-sm">
+          <thead>
+            <tr class="bg-gray-100 text-left">
+              <th class="border px-2 py-2 text-center"><input type="checkbox" id="select-all" onclick="toggleAllCheckboxes(this)" /></th>
+              <th class="border px-2 py-2">Order ID</th>
+              <th class="border px-2 py-2">Date/Time Stamp</th>
+              <th class="border px-2 py-2">Customer Name</th>
+              <th class="border px-2 py-2">Customer Email</th>
+              <th class="border px-2 py-2">Product Name</th>
+              <th class="border px-2 py-2">Amount</th>
+              <th class="border px-2 py-2">Qty</th>
+              <th class="border px-2 py-2">Shipping Type</th>
+              <th class="border px-2 py-2 text-center">Status</th>
+            </tr>
+          </thead>
+          <tbody id="orders-body" class="bg-white divide-y divide-gray-200">
+            <!-- Example row -->
+            <tr>
+              <!-- ...existing cells... -->
+              <td data-label="Status" class="border px-2 py-2 text-center">
+                <span class="status-tag status-approved">Approved</span>
+              </td>
+            </tr>
+            <!-- Rows will be dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Action Bar -->
+  <div class="fixed bottom-4 right-4 flex flex-row items-stretch gap-2">
+    <button id="delete-button" onclick="deleteSelectedRows()" class="hidden bg-red-500 w-12 text-white p-3 rounded-lg shadow-lg hover:bg-red-600">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <button id="edit-button" onclick="openEditPopup()" class="hidden bg-yellow-500 w-12 text-white p-3 rounded-lg shadow-lg hover:bg-yellow-600">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-4 4m0 0l4-4m-4 4V3m13 13l-4 4m0 0l4-4m-4 4V3" />
+      </svg>
+    </button>
+    <select id="status-change-dropdown" class="hidden border px-3 py-2 rounded-lg shadow-lg" onchange="changeStatusDirectly(this)">
+      <option value="" disabled selected>Change Status</option>
+      <option value="Approved">Approved</option>
+      <option value="Pending">Pending</option>
+      <option value="Declines">Declines</option>
+      <option value="Hold">Hold</option>
+      <option value="Cancellations">Cancellations</option>
+      <option value="Subscriptions">Subscriptions</option>
+      <option value="Void/Refund">Void/Refund</option>
+      <option value="Shipped">Shipped</option>
+      <option value="Fraud">Fraud</option>
+      <option value="Chargeback">Chargeback</option>
+      <option value="Return">Return</option>
+      <option value="Bad Shipping Address">Bad Shipping Address</option>
+      <option value="Deleted">Deleted</option>
+    </select>
+  </div>
+
+  <!-- Edit Popup -->
+  <div id="edit-popup" style="display: none; position: fixed; inset: 0; background-color: rgba(31, 41, 55, 0.5); align-items: center; justify-content: center; z-index: 50;">
+    <div id="popup-content" style="background-color: #f3f4f6; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); width: 24rem; opacity: 0; transform: scale(0.95); transition: opacity 0.3s ease-out, transform 0.3s ease-out;">
+      <h2 class="text-lg font-bold mb-4">Edit Row</h2>
+      <form id="edit-form">
+        <div class="mb-2">
+          <label for="edit-order-id" class="block text-sm font-medium">Order ID</label>
+          <input id="edit-order-id" type="text" class="border px-2 py-1 rounded w-full shadow" disabled />
+        </div>
+        <div class="mb-2">
+          <label for="edit-customer-name" class="block text-sm font-medium">Customer Name</label>
+          <input id="edit-customer-name" type="text" class="border px-2 py-1 rounded w-full shadow" />
+        </div>
+        <div class="mb-2">
+          <label for="edit-customer-email" class="block text-sm font-medium">Customer Email</label>
+          <input id="edit-customer-email" type="email" class="border px-2 py-1 rounded w-full shadow" />
+        </div>
+        <div class="mb-2">
+          <label for="edit-product-name" class="block text-sm font-medium">Product Name</label>
+          <input id="edit-product-name" type="text" class="border px-2 py-1 rounded w-full shadow" />
+        </div>
+        <div class="mb-2">
+          <label for="edit-amount" class="block text-sm font-medium">Amount</label>
+          <input id="edit-amount" type="text" class="border px-2 py-1 rounded w-full shadow" />
+        </div>
+        <div class="mb-2">
+          <label for="edit-qty" class="block text-sm font-medium">Quantity</label>
+          <input id="edit-qty" type="number" class="border px-2 py-1 rounded w-full shadow" />
+        </div>
+        <div class="mb-4">
+          <label for="edit-status" class="block text-sm font-medium">Status</label>
+          <select id="edit-status" class="border px-2 py-1 rounded w-full shadow">
+            <option value="Approved">Approved</option>
+            <option value="Pending">Pending</option>
+            <option value="Declines">Declines</option>
+            <option value="Hold">Hold</option>
+            <option value="Cancellations">Cancellations</option>
+            <option value="Subscriptions">Subscriptions</option>
+            <option value="Void/Refund">Void/Refund</option>
+            <option value="Shipped">Shipped</option>
+            <option value="Fraud">Fraud</option>
+            <option value="Chargeback">Chargeback</option>
+            <option value="Return">Return</option>
+            <option value="Bad Shipping Address">Bad Shipping Address</option>
+            <option value="Deleted">Deleted</option>
+          </select>
+        </div>
+        <div class="flex justify-end gap-2">
+          <button type="button" onclick="closeEditPopup()" style="background-color: #e5e7eb; padding: 0.25rem 1rem; border-radius: 0.25rem; transition: background-color 0.2s;">Cancel</button>
+          <button type="submit" style="background-color: #3b82f6; color: white; padding: 0.25rem 1rem; border-radius: 0.25rem; transition: background-color 0.2s;">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="scripts.js"></script>
+  <script>
+    function openEditPopup() {
+      const popup = document.getElementById("edit-popup");
+      const popupContent = document.getElementById("popup-content");
+      // Get the selected row data
+      const checkedRow = document.querySelector(".row-checkbox:checked").closest("tr");
+      const cells = checkedRow.querySelectorAll("td");
+      // Populate the popup fields with existing data
+      document.getElementById("edit-order-id").value = cells[1].innerText.trim();
+      document.getElementById("edit-customer-name").value = cells[3].innerText.trim();
+      document.getElementById("edit-customer-email").value = cells[4].innerText.trim();
+      document.getElementById("edit-product-name").value = cells[5].innerText.trim();
+      document.getElementById("edit-amount").value = cells[6].innerText.trim();
+      document.getElementById("edit-qty").value = cells[7].innerText.trim();
+      document.getElementById("edit-status").value = cells[9].innerText.trim();
+      // Show the popup using inline styles
+      popup.style.display = "flex"; // Ensure the popup is displayed as flex
+      setTimeout(() => {
+        popupContent.style.opacity = "1";
+        popupContent.style.transform = "scale(1)";
+      }, 10); // Add a slight delay to trigger the transition
+    }
+
+    function closeEditPopup() {
+      const popup = document.getElementById("edit-popup");
+      const popupContent = document.getElementById("popup-content");
+      // Hide the popup using inline styles
+      popupContent.style.opacity = "0";
+      popupContent.style.transform = "scale(0)";
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 300); // Wait for the transition to complete
+    }
+
+    document.getElementById("edit-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+      // ...existing code...
+
+      // Uncheck the checkbox of the selected row
+      const checkedRow = document.querySelector(".row-checkbox:checked");
+      if (checkedRow) {
+        checkedRow.checked = false;
+        toggleRowHighlight(checkedRow); // Update row highlight
+      }
+    });
+  </script>
+</body>
+
+</html>
