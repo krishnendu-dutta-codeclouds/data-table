@@ -233,6 +233,17 @@
       setTimeout(() => {
         popup.style.display = "none";
       }, 300); // Wait for the transition to complete
+
+      // Uncheck all selected checkboxes
+      document.querySelectorAll(".row-checkbox:checked").forEach(checkbox => {
+        checkbox.checked = false;
+        toggleRowHighlight(checkbox); // Update row highlight if applicable
+      });
+
+      // Hide floating action buttons
+      document.getElementById("delete-button").classList.add("hidden");
+      document.getElementById("edit-button").classList.add("hidden");
+      document.getElementById("status-change-dropdown").classList.add("hidden");
     }
 
     document.getElementById("edit-form").addEventListener("submit", function (event) {

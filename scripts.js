@@ -381,6 +381,12 @@ let orders = JSON.parse(sessionStorage.getItem("orders")) || [
       populateTable();
       closeEditPopup();
   
+      // Uncheck all selected rows
+      document.querySelectorAll(".row-checkbox:checked").forEach(checkbox => {
+        checkbox.checked = false;
+        toggleRowHighlight(checkbox); // Update row highlight if applicable
+      });
+  
       // Reapply the current filter to reflect the updated status
       const activeFilter = document.querySelector(".filter-button.active");
       if (activeFilter) {
