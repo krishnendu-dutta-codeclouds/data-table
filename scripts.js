@@ -501,7 +501,11 @@ let orders = JSON.parse(sessionStorage.getItem("orders")) || [
     let isDragging = false;
     let startX, scrollLeft;
   
+    // Mouse events
     container.addEventListener('mousedown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || window.getSelection().toString()) {
+        return; // Allow text selection
+      }
       isDragging = true;
       container.classList.add('dragging');
       startX = e.pageX - container.offsetLeft;
@@ -522,6 +526,26 @@ let orders = JSON.parse(sessionStorage.getItem("orders")) || [
       if (!isDragging) return;
       e.preventDefault();
       const x = e.pageX - container.offsetLeft;
+      const walk = (x - startX) * 2; // Adjust scroll speed
+      container.scrollLeft = scrollLeft - walk;
+    });
+  
+    // Touch events
+    container.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      container.classList.add('dragging');
+      startX = e.touches[0].pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+    });
+  
+    container.addEventListener('touchend', () => {
+      isDragging = false;
+      container.classList.remove('dragging');
+    });
+  
+    container.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const x = e.touches[0].pageX - container.offsetLeft;
       const walk = (x - startX) * 2; // Adjust scroll speed
       container.scrollLeft = scrollLeft - walk;
     });

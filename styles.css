@@ -266,7 +266,8 @@ input:not([type="submit"], [type="checkbox"], [type="radio"]):focus {
 
 .filter-buttons-container {
   display: flex;
-  overflow-x: hidden;
+  overflow-x: auto; /* Allow horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling for touch devices */
   cursor: grab;
   user-select: none;
 }
@@ -294,6 +295,10 @@ input:not([type="submit"], [type="checkbox"], [type="radio"]):focus {
   user-select: none;
 }
 
+[data-draggable].dragging {
+  cursor: grabbing;
+}
+
 [data-draggable]::-webkit-scrollbar {
   display: none; /* For Chrome, Safari, and Edge */
 }
@@ -301,4 +306,50 @@ input:not([type="submit"], [type="checkbox"], [type="radio"]):focus {
 [data-draggable] {
   -ms-overflow-style: none; /* For Internet Explorer and Edge */
   scrollbar-width: none; /* For Firefox */
+}
+
+/* Enable text selection */
+[data-draggable] * {
+  user-select: text;
+}
+
+@media (min-width: 641px) {
+  [data-draggable] {
+    cursor: grab;
+  }
+
+  [data-draggable].dragging {
+    cursor: grabbing;
+  }
+}
+
+#edit-popup {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(31, 41, 55, 0.5); /* Semi-transparent background */
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  overflow: hidden; /* Prevent overflow outside the window */
+}
+
+#popup-content {
+  background-color: #f3f4f6; /* Light gray background */
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 90%; /* Adjust width for smaller screens */
+  max-width: 24rem; /* Limit maximum width */
+  max-height: 90%; /* Ensure the popup fits within the viewport */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+@media (min-width: 641px) {
+  #popup-content {
+    max-height: 80%; /* Slightly reduce height for larger screens */
+  }
 }
