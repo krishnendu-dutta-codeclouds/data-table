@@ -4,7 +4,7 @@ th,
 td,
 input,
 button {
-  font-size: 11px;
+  font-size: 13px;
 }
 @media (min-width: 640px) {
   body,
@@ -13,7 +13,7 @@ button {
   td,
   input,
   button {
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 @media (min-width: 768px) {
@@ -23,7 +23,7 @@ button {
   td,
   input,
   button {
-    font-size: 13px;
+    font-size: 14px;
   }
 }
 tr.selected-row {
@@ -40,7 +40,7 @@ thead tr {
   }
   tbody tr {
     display: block;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     border: 1px solid #e5e7eb;
     border-radius: 0.5rem;
     overflow: hidden;
@@ -149,7 +149,7 @@ select {
   backdrop-filter: blur(10px); /* Blur effect */
   border: 1px solid rgba(255, 255, 255, 0.8); /* Light border */
   border-radius: 8px; /* Rounded corners */
-  padding: 0.5rem 1rem; /* Padding for better spacing */
+  padding: 0.5rem 1rem !important; /* Padding for better spacing */
   color: #000; /* Black text color */
   transition: all 0.3s ease-in-out; /* Smooth transition */
   min-height: 34px;
@@ -330,6 +330,7 @@ input:not([type="submit"], [type="checkbox"], [type="radio"]):focus {
   position: fixed;
   inset: 0;
   background-color: rgba(31, 41, 55, 0.5); /* Semi-transparent background */
+  backdrop-filter: blur(8px); /* Blur effect for matte glass look */
   align-items: center;
   justify-content: center;
   z-index: 50;
@@ -337,10 +338,12 @@ input:not([type="submit"], [type="checkbox"], [type="radio"]):focus {
 }
 
 #popup-content {
-  background-color: #f3f4f6; /* Light gray background */
-  padding: 1rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+  backdrop-filter: blur(10px); /* Blur effect for the popup itself */
+  padding: 1.5rem; /* Add padding to the popup body */
+  border-radius: 0.5rem; /* Rounded corners */
+  border: 1px solid rgba(255, 255, 255, 0.6); /* Light border for the popup */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   width: 90%; /* Adjust width for smaller screens */
   max-width: 24rem; /* Limit maximum width */
   max-height: 90%; /* Ensure the popup fits within the viewport */

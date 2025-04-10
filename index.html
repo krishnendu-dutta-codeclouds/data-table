@@ -18,7 +18,7 @@
 
     <div class="overflow-x-auto">
       <!-- Search Filters -->
-      <div class="mb-4 flex flex-wrap gap-2 justify-center">
+      <div class="mb-4 flex flex-wrap gap-2 justify-center py-2">
         <input id="search-order" type="text" placeholder="Search Order ID" class="w-full sm:w-auto shadow" />
         <input id="search-email" type="text" placeholder="Customer Email" class="w-full sm:w-auto shadow" />
         <input id="search-product" type="text" placeholder="Product Name" class="w-full sm:w-auto shadow" />
@@ -83,7 +83,7 @@
       </div>
 
       <!-- Orders Table -->
-      <div class="overflow-auto rounded-lg shadow" data-draggable>
+      <div class="overflow-auto  sm:rounded-lg rounded-2xl shadow" data-draggable>
         <table class="table-auto w-full border-collapse border border-gray-200 text-sm">
           <thead>
             <tr class="bg-gray-100 text-left">
@@ -99,7 +99,7 @@
               <th class="border px-2 py-2 text-center">Status</th>
             </tr>
           </thead>
-          <tbody id="orders-body" class="bg-white divide-y divide-gray-200">
+          <tbody id="orders-body" class="bg-white divide-y divide-gray-200 flex sm:table-row-group flex-col p-2 sm:p-0">
             <!-- Example row -->
             <tr>
               <!-- ...existing cells... -->
@@ -147,7 +147,7 @@
   <!-- Edit Popup -->
   <div id="edit-popup" style="display: none; position: fixed; inset: 0; background-color: rgba(31, 41, 55, 0.5); align-items: center; justify-content: center; z-index: 50;">
     <div id="popup-content" style="background-color: #f3f4f6; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); width: 24rem; opacity: 0; transform: scale(0.95); transition: opacity 0.3s ease-out, transform 0.3s ease-out;">
-      <h2 class="text-lg font-bold mb-4">Edit Row</h2>
+      <h2 id="popup-title" class="text-lg font-bold mb-4">Edit Row</h2>
       <form id="edit-form">
         <div class="mb-2">
           <label for="edit-order-id" class="block text-sm font-medium">Order ID</label>
@@ -205,9 +205,12 @@
     function openEditPopup() {
       const popup = document.getElementById("edit-popup");
       const popupContent = document.getElementById("popup-content");
+      const popupTitle = document.getElementById("popup-title");
+
       // Get the selected row data
       const checkedRow = document.querySelector(".row-checkbox:checked").closest("tr");
       const cells = checkedRow.querySelectorAll("td");
+
       // Populate the popup fields with existing data
       document.getElementById("edit-order-id").value = cells[1].innerText.trim();
       document.getElementById("edit-customer-name").value = cells[3].innerText.trim();
@@ -216,6 +219,10 @@
       document.getElementById("edit-amount").value = cells[6].innerText.trim();
       document.getElementById("edit-qty").value = cells[7].innerText.trim();
       document.getElementById("edit-status").value = cells[9].innerText.trim();
+
+      // Set the popup title to the user's name
+      popupTitle.innerText = cells[3].innerText.trim();
+
       // Show the popup using inline styles
       popup.style.display = "flex"; // Ensure the popup is displayed as flex
       setTimeout(() => {
